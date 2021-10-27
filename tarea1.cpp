@@ -16,12 +16,25 @@ int padre_hijo[3];
 int padre_hijo_actual;
 bool padre_esperando_a_hijo;
 bool padre_hayUnGanador;
+Tablero tablero;
 
 void hijo_turno_usuario(int signal_number){
+    //Jugada
     
+    //Final de la funcion
+    if(hijo_yo.getPesos() >= 500){
+        kill(todos_padre,SIGTERM);
+    }
+    else{
+        kill(todos_padre,SIGINT);
+    }
 }
 
 void hijo_turno(int signal_number){
+    //Jugada
+    int pos = hijo_yo.dado();
+    tablero.ejecutar(hijo_yo);
+    //Final de la funcion
     if(hijo_yo.getPesos() >= 500){
         kill(todos_padre,SIGTERM);
     }
@@ -45,7 +58,6 @@ void padre_el_hijo_movio(int signal_number){
 int main() {
     srand(time(NULL));
     todos_padre = getpid();
-    Tablero tablero;
     for(int i = 0; i < hijos; i++){
         padre_hijo[i] = fork();
         if(padre_hijo[i] == 0){
