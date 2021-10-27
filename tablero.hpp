@@ -6,6 +6,7 @@ using namespace std;
 
 class jugador{
     private:
+        int id;
         int pesos;
         int actual;
         int siguiente;
@@ -13,10 +14,19 @@ class jugador{
     
     public:
         jugador(){
+            id = 0;
             pesos = 0;
             actual = 0;
             siguiente = 0;
             turno = false;
+        }
+
+        int getId(){
+            return id;
+        }
+
+        void setId(int id){
+            id = id;
         }
 
         bool getTurno(){
