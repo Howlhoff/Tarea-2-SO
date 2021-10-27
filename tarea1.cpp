@@ -22,7 +22,7 @@ Tablero tablero;
 void hijo_turno_usuario(int signal_number){
     //Jugada
     int n;
-    cout << "> ";
+    cout << "Tu turno:\n> ";
     cin >> n;
     switch(n){
     case 1:
