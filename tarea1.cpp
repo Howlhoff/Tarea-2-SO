@@ -22,25 +22,31 @@ Tablero tablero;
 void hijo_turno_usuario(int signal_number){
     //Jugada
     int n;
-    cout << "Tu turno:\n> ";
-    cin >> n;
-    switch(n){
-    case 1:
-        hijo_yo.dado();
-        break;
-    case 2:
-        tablero.ejecutar(hijo_yo);
-        break;
-    case 3:
-        tablero.show(jugadores[0],jugadores[1],jugadores[2]);
-        break;
-    case 4:
-        cout << "Menu:\n1. Tirar dado\n2. Ejecutar accion\n3. Ver el tablero actual\n4. Este menu." << endl;
-        break;
-    default:
-        cout << "Ingrese un valor valido" << endl;
-        break;
-    } 
+    bool flag =  true;
+    cout << "Tu turno: " << endl;
+    while(flag){
+        cout << "> ";
+        cin >> n;
+        switch(n){
+        case 1:
+            hijo_yo.dado();
+            break;
+        case 2:
+            tablero.ejecutar(hijo_yo);
+            flag = false;
+            break;
+        case 3:
+            tablero.show(jugadores[0],jugadores[1],jugadores[2]);
+            break;
+        case 4:
+            cout << "Menu:\n1. Tirar dado\n2. Ejecutar accion\n3. Ver el tablero actual\n4. Este menu." << endl;
+            break;
+        default:
+            cout << "Ingrese un valor valido" << endl;
+            break;
+        }
+    }
+     
     //Final de la funcion
     if(hijo_yo.getPesos() >= 500){
         kill(todos_padre,SIGTERM);
