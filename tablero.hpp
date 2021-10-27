@@ -59,33 +59,27 @@ class jugador{
             return pesos;
         }
 
-        int forward(int n){
+        void forward(int n){
             for(int i = 0; i < n; i++){
                 actual++;
             }
             if(actual > 28){
-                return actual%28;
-            }
-            else{
-                return actual;
+                actual = actual%28;
             }
         }
 
-        int backward(int n){
+        void backward(int n){
             for(int i = 0; i < n; i++){
                 actual--;
             }
             if(actual < 0){
-                return (28-actual)%28;
-            }
-            else{
-                return actual;
+                actual = (28-actual)%28;
             }
         }
-        int dado(){
+        void dado(){
             int ran = (rand() % 6) + 1;
             siguiente = ran;
-            return forward(siguiente);
+            forward(siguiente);
         }
 
 };

@@ -9,6 +9,7 @@ int hijos = 3;
 
 int todos_padre;
 jugador hijo_yo;
+jugador jugadores[3];
 int hijo_con_turno;
 int hijo_cntTurno;
 bool hijo_debe_salir;
@@ -20,7 +21,26 @@ Tablero tablero;
 
 void hijo_turno_usuario(int signal_number){
     //Jugada
-    
+    int n;
+    cout << "> ";
+    cin >> n;
+    switch(n){
+    case 1:
+        hijo_yo.dado();
+        break;
+    case 2:
+        tablero.ejecutar(hijo_yo);
+        break;
+    case 3:
+        tablero.show(jugadores[0],jugadores[1],jugadores[3]);
+        break;
+    case 4:
+        cout << "Menu:\n1. Tirar dado\n2. Ejecutar accion\n3. Ver el tablero actual\n4. Este menu." << endl;
+        break;
+    default:
+        cout << "Ingrese un valor valido" << endl;
+        break;
+    } 
     //Final de la funcion
     if(hijo_yo.getPesos() >= 500){
         kill(todos_padre,SIGTERM);
@@ -32,7 +52,7 @@ void hijo_turno_usuario(int signal_number){
 
 void hijo_turno(int signal_number){
     //Jugada
-    int pos = hijo_yo.dado();
+    hijo_yo.dado();
     tablero.ejecutar(hijo_yo);
     //Final de la funcion
     if(hijo_yo.getPesos() >= 500){
@@ -62,6 +82,7 @@ int main() {
         padre_hijo[i] = fork();
         if(padre_hijo[i] == 0){
             hijo_yo.setId(getpid());
+            jugadores[i] = hijo_yo;
             break;
         }
     }
