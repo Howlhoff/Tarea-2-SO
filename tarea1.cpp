@@ -32,7 +32,7 @@ void hijo_turno_usuario(int signal_number){
         tablero.ejecutar(hijo_yo);
         break;
     case 3:
-        tablero.show(jugadores[0],jugadores[1],jugadores[3]);
+        tablero.show(jugadores[0],jugadores[1],jugadores[2]);
         break;
     case 4:
         cout << "Menu:\n1. Tirar dado\n2. Ejecutar accion\n3. Ver el tablero actual\n4. Este menu." << endl;
