@@ -82,6 +82,27 @@ void padre_el_hijo_movio(int signal_number){
 }
 
 int main() {
+    // Set up
+    int fd1[2];
+    int fd2[2];
+    int fd3[3];
+
+    if(pipe(fd1) == -1){
+        cout << "PIPE 1 ERROR" << endl;
+        return 1;
+    }
+    
+    if(pipe(fd2) == -1){
+        cout << "PIPE 1 ERROR" << endl;
+        return 1;
+    }
+
+    if(pipe(fd3) == -1){
+        cout << "PIPE 1 ERROR" << endl;
+        return 1;
+    }
+
+
     srand(time(NULL));
     todos_padre = getpid();
     for(int i = 0; i < hijos; i++){
@@ -91,8 +112,14 @@ int main() {
             jugadores[i] = hijo_yo;
             break;
         }
-    }
+    
+    
+    // Juego
     if(hijo_yo.getId() == 0){
+        close(fd1[1]);
+        close(fd2[1]);
+        close(fd3[1]);
+        
         sleep(1);
         signal(SIGTERM, padre_terminar_hijo);
         signal(SIGINT, padre_el_hijo_movio);
@@ -111,6 +138,10 @@ int main() {
         }
     }
     else{
+        close(fd1[0]);
+        close(fd2[0]);
+        close(fd3[0]);
+        
         if(padre_hijo[0] == hijo_yo.getId()){
             signal(SIGINT, hijo_turno_usuario);
             signal(SIGTERM, hijo_salir);
