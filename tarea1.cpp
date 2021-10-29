@@ -112,7 +112,7 @@ int main() {
             jugadores[i] = hijo_yo;
             break;
         }
-    
+    }
     
     // Juego
     if(hijo_yo.getId() == 0){
