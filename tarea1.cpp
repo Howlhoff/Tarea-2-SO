@@ -8,7 +8,7 @@ using namespace std;
 int hijos = 3;
 
 int todos_padre;
-jugador hijo_yo;
+jugador hijo_yoo;
 jugador jugadores[3];
 int hijo_con_turno;
 int hijo_cntTurno;
