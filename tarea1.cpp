@@ -85,21 +85,21 @@ int main() {
     // Set up
     int fd1[2];
     int fd2[2];
-    int fd3[3];
+    int fd3[2];
 
     if(pipe(fd1) == -1){
-        cout << "PIPE 1 ERROR" << endl;
-        return 1;
+        cout << "PIPE 1 CREATION ERROR" << endl;
+        return -1;
     }
     
     if(pipe(fd2) == -1){
-        cout << "PIPE 1 ERROR" << endl;
-        return 1;
+        cout << "PIPE 2 CREATION ERROR" << endl;
+        return -1;
     }
 
     if(pipe(fd3) == -1){
-        cout << "PIPE 1 ERROR" << endl;
-        return 1;
+        cout << "PIPE 3 CREATION ERROR" << endl;
+        return -1;
     }
 
 
@@ -134,6 +134,18 @@ int main() {
                 if(padre_hayUnGanador){
                     break;
                 }
+                if (read(fd1[0], &jugadores[0], sizeof(jugador)) == -1){
+                    cout << "PIPE 1 READ ERROR" << endl;
+                    return -4;
+                }
+                else if (read(fd2[0], &jugadores[1], sizeof(jugador)) == -1){
+                    cout << "PIPE 2 READ ERROR" << endl;
+                    return -4;
+                }
+                else if (read(fd3[0], &jugadores[2], sizeof(jugador)) == -1){
+                    cout << "PIPE 3 READ ERROR" << endl;
+                    return -4;
+                }
             }
         }
     }
@@ -145,16 +157,45 @@ int main() {
         if(padre_hijo[0] == hijo_yo.getId()){
             signal(SIGINT, hijo_turno_usuario);
             signal(SIGTERM, hijo_salir);
+
             while(!hijo_debe_salir){
+                if (write(fd1[1], &hijo_yo, sizeof(jugador)) == -1){
+                    cout << "PIPE 1 WRITE ERROR" << endl;
+                    return -2;
+                }
+
                 sleep(rand() % 10 + 1);
             }
         }
-        else{
+        else if (padre_hijo[1] == hijo_yo.getId()){
             signal(SIGINT, hijo_turno);
             signal(SIGTERM, hijo_salir);
+
             while(!hijo_debe_salir){
+                if (write(fd2[1], &hijo_yo, sizeof(jugador)) == -1){
+                    cout << "PIPE 2 WRITE ERROR" << endl;
+                    return -2;
+                }
+
                 sleep(rand() % 10 + 1);
             }
+        }
+        else if (padre_hijo[2] == hijo_yo.getId()){
+            signal(SIGINT, hijo_turno);
+            signal(SIGTERM, hijo_salir);
+
+            while(!hijo_debe_salir){
+                if (write(fd3[1], &hijo_yo, sizeof(jugador)) == -1){
+                    cout << "PIPE 3 WRITE ERROR" << endl;
+                    return -2;
+                }
+
+                sleep(rand() % 10 + 1);
+            }
+        }
+        else {
+            cout << "PLAYER ERROR" << endl;
+            return -3;
         }
     }
     return 0;
