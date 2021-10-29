@@ -206,18 +206,37 @@ class Tablero{
             string temp[28];
             for (int i = 0; i < 28; i++){
                 if (i == pos[0]){
-                    temp[i] = "J1";
+                    temp[i] = "J 1";
                 }
                 else if (i == pos[1]){
-                    temp[i] == "J2";
+                    temp[i] == "J 2";
                 }
                 else if (i == pos[2]){
-                    temp[i] == "J3";
+                    temp[i] == "J 3";
                 }
                 else{
                     temp[i] == tablero[i];
                 }
             }
+
+            cout << " _______________________________________________" << endl;
+            cout << "|\t\t\t\t\t        |" << endl;
+            cout << "| " << temp[7] << "| " <<  temp[8] << " | " << temp[9] << " | " << temp[10] << " | " << temp[11] << " | " << temp[12] << " | " << temp[13] << " |" << temp[14] << " |" << endl;
+            cout << "|-----|\t\t\t\t\t  |-----|" << endl;
+            cout << "| " << temp[6] <<" |\t\t\t\t\t  | " << temp[15] << " |" << endl;
+            cout << "|-----|\t\t\t\t\t  |-----|" << endl;
+            cout << "| " << temp[5] <<" |\t\t\t\t\t  | " << temp[16] << " |" << endl;
+            cout << "|-----|\t\t\t\t\t  |-----|" << endl;
+            cout << "| " << temp[4] << " |\t\t\t\t\t  | " << temp[17] << " |" << endl;
+            cout << "|-----|\t\t\t\t\t  |-----|" << endl;
+            cout << "| " << temp[3] << " |\t\t\t\t\t  | " << temp[18] << " |" << endl;
+            cout << "|-----|\t\t\t\t\t  |-----|" << endl;
+            cout << "| " << temp[2] << " |\t\t\t\t\t  | " << temp[19] << " |" << endl;
+            cout << "|-----|\t\t\t\t\t  |-----|" << endl;
+            cout << "| " << temp[1] << " |\t\t\t\t\t  | " << temp[20] << " |" << endl;
+            cout << "|-----|\t\t\t\t\t  |-----|" << endl;
+            cout << "|" << temp[0] << "| " << temp[27] << " | " << temp[26] << " | " << temp[25] << " | " << temp[24] << " | " << temp[23] << " | " << temp[22] << " |" << temp[21] << " |" << endl;
+            cout << "|_______________________________________________|" << endl;
 
             //El resto
             //Turno del jugador
