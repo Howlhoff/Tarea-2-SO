@@ -1,6 +1,8 @@
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
+#include <algorithm>
+#include <iterator>
 
 using namespace std;
 
@@ -200,6 +202,22 @@ class Tablero{
 
         void show(jugador j1, jugador j2, jugador j3){
             //Aqui te dejo el bosquedo
+            int pos[3] = {j1.getActual(), j2.getActual(), j3.getActual()};
+            string temp[28];
+            for (int i = 0; i < 28; i++){
+                if (i == pos[0]){
+                    temp[i] = "J1";
+                }
+                else if (i == pos[1]){
+                    temp[i] == "J2";
+                }
+                else if (i == pos[2]){
+                    temp[i] == "J3";
+                }
+                else{
+                    temp[i] == tablero[i];
+                }
+            }
 
             //El resto
             //Turno del jugador
