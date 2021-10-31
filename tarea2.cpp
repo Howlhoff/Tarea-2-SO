@@ -101,6 +101,7 @@ int main() {
         cout << "PIPE 3 CREATION ERROR" << endl;
         return -1;
     }
+    cout << "Pipes created." << endl;
 
 
     srand(time(NULL));
@@ -114,6 +115,7 @@ int main() {
         }
     }
     
+/*
     // Juego
     if(hijo_yo.getId() == 0){
         close(fd1[1]);
@@ -197,6 +199,6 @@ int main() {
             cout << "PLAYER ERROR" << endl;
             return -3;
         }
-    }
+    }*/
     return 0;
 }
