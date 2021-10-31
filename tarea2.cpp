@@ -26,7 +26,7 @@ void hijo_turno_usuario(int signal_number){
     jugador Player1 = hijo_yo;
     Player1.setTurno(true);
     
-    cout << "\nMenu:\n1. Tirar dado\n2. Ejecutar accion\n3. Ver el tablero actual\n4. Este menu." << endl;
+    cout << "Menu:\t1. Tirar dado\t2. Ejecutar accion\t3. Este menu." << endl;
     cout << "\nTu turno!\n" << endl;
     while(flag){
         cout << "> ";
@@ -34,16 +34,14 @@ void hijo_turno_usuario(int signal_number){
         switch(n){
         case 1:
             Player1.dado();
+            cout << "Dado: " << Player1.getSiguiente() << endl;
             break;
         case 2:
             tablero.ejecutar(Player1);
             flag = false;
             break;
         case 3:
-            tablero.show(Player1,jugadores[1],jugadores[2]);
-            break;
-        case 4:
-            cout << "Menu:\n1. Tirar dado\n2. Ejecutar accion\n3. Ver el tablero actual\n4. Este menu." << endl;
+            cout << "Menu:\t1. Tirar dado\t2. Ejecutar accion\t3. Este menu." << endl;
             break;
         default:
             cout << "Ingrese un valor valido" << endl;
@@ -66,9 +64,11 @@ void hijo_turno(int signal_number){
     cout << "Jugador " << hijo_yo.getId() << " jugando..." << endl;
 
     jugador PlayerX = hijo_yo;
+    srand(time(NULL));
 
     //Jugada
     PlayerX.dado();
+    cout << "Dado: " << PlayerX.getSiguiente() << endl;
     tablero.ejecutar(PlayerX);
 
     //Final de la funcion
@@ -101,22 +101,21 @@ int main() {
     int fd3[2];
 
     if(pipe(fd1) == -1){
-        cout << "PIPE 1 CREATION ERROR" << endl;
+        cout << "PLAYER PIPE 1 CREATION ERROR" << endl;
         return -1;
     }
 
     if(pipe(fd2) == -1){
-        cout << "PIPE 2 CREATION ERROR" << endl;
+        cout << "PLAYER PIPE 2 CREATION ERROR" << endl;
         return -1;
     }
 
     if(pipe(fd3) == -1){
-        cout << "PIPE 3 CREATION ERROR" << endl;
+        cout << "PLAYER PIPE 3 CREATION ERROR" << endl;
         return -1;
     }
 
 
-    srand(time(NULL));
     todos_padre = getpid();
     for(int i = 0; i < hijos; i++){
         padre_hijo[i] = fork();
@@ -141,7 +140,12 @@ int main() {
             for(int i = 0; i < hijos; i++){
                 padre_hijo_actual = i;
                 padre_esperando_a_hijo = true;
+
+                if (i == 0){
+                    tablero.show(jugadores[0], jugadores[1], jugadores[2]);
+                }
                 kill(padre_hijo[i],SIGINT);
+
                 while(padre_esperando_a_hijo && !padre_hayUnGanador){
                     usleep(100);
                 }
@@ -149,17 +153,20 @@ int main() {
                     break;
                 }
                 if (read(fd1[0], &jugadores[0], sizeof(jugador)) == -1){
-                    cout << "PIPE 1 READ ERROR" << endl;
+                    cout << "PLAYER PIPE 1 READ ERROR" << endl;
                     return -4;
                 }
                 else if (read(fd2[0], &jugadores[1], sizeof(jugador)) == -1){
-                    cout << "PIPE 2 READ ERROR" << endl;
+                    cout << "PLAYER PIPE 2 READ ERROR" << endl;
                     return -4;
                 }
                 else if (read(fd3[0], &jugadores[2], sizeof(jugador)) == -1){
-                    cout << "PIPE 3 READ ERROR" << endl;
+                    cout << "PLAYER PIPE 3 READ ERROR" << endl;
                     return -4;
                 }
+                tablero.ejecutar(jugadores[i]);
+
+                cout << "DAD CHECK: POST-TURN" << endl;
             }
         }
     }

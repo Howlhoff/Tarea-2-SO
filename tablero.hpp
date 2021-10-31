@@ -94,7 +94,7 @@ class Tablero{
     public:
         Tablero(){
             this->tablero = new string[28];
-            this->tablero[0]="start";
+            this->tablero[0]="sta";
             this->tablero[1]="+50";
             this->tablero[2]="+50";
             this->tablero[3]="-25";
@@ -201,7 +201,7 @@ class Tablero{
         }
 
         void show(jugador j1, jugador j2, jugador j3){
-            //Aqui te dejo el bosquedo
+            //Tablero
             int pos[3] = {j1.getActual(), j2.getActual(), j3.getActual()};
             string temp[28];
             for (int i = 0; i < 28; i++){
@@ -237,35 +237,6 @@ class Tablero{
             cout << "|-----|\t\t\t\t\t  |-----|" << endl;
             cout << "| " << temp[0] << " | " << temp[27] << " | " << temp[26] << " | " << temp[25] << " | " << temp[24] << " | " << temp[23] << " | " << temp[22] << " |" << temp[21] << " |" << endl;
             cout << "|_______________________________________________|" << endl;
-
-            //El resto
-            //Turno del jugador
-            if(j1.getTurno() == true){
-                cout << "El turno actual es de J1" << endl;
-            }
-            else if(j2.getTurno() == true){
-                cout << "El turno actual es de J2" << endl;
-            }
-            else if(j2.getTurno() == true){
-                cout << "El turno actual es de J3" << endl;
-            }
-            else{
-                cout << "No es turno de ningun jugador" << endl;
-            }
-
-            //Dado
-            if(j1.getTurno() == true){
-                cout << "Dado: "<< j1.getSiguiente() << endl;
-            }
-            else if(j2.getTurno() == true){
-                cout << "Dado: "<< j2.getSiguiente() << endl;
-            }
-            else if(j2.getTurno() == true){
-                cout << "Dado: "<< j3.getSiguiente() << endl;
-            }
-            else{
-                cout << "Ningun jugador ha tirado el dado" << endl;
-            }
 
             //Cantidad de cada jugador
 
