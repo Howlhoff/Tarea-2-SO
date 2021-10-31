@@ -46,7 +46,7 @@ void hijo_turno_usuario(int signal_number){
             break;
         }
     }
-     
+
     //Final de la funcion
     if(hijo_yo.getPesos() >= 500){
         kill(todos_padre,SIGTERM);
@@ -91,7 +91,7 @@ int main() {
         cout << "PIPE 1 CREATION ERROR" << endl;
         return -1;
     }
-    
+
     if(pipe(fd2) == -1){
         cout << "PIPE 2 CREATION ERROR" << endl;
         return -1;
@@ -101,7 +101,6 @@ int main() {
         cout << "PIPE 3 CREATION ERROR" << endl;
         return -1;
     }
-    cout << "Pipes created." << endl;
 
 
     srand(time(NULL));
@@ -114,14 +113,14 @@ int main() {
             break;
         }
     }
-    
-/*
+
+
     // Juego
     if(hijo_yo.getId() == 0){
         close(fd1[1]);
         close(fd2[1]);
         close(fd3[1]);
-        
+
         sleep(1);
         signal(SIGTERM, padre_terminar_hijo);
         signal(SIGINT, padre_el_hijo_movio);
@@ -155,8 +154,8 @@ int main() {
         close(fd1[0]);
         close(fd2[0]);
         close(fd3[0]);
-        
-        if(padre_hijo[0] == hijo_yo.getId()){
+
+        if(jugadores[0].getId() == hijo_yo.getId()){
             signal(SIGINT, hijo_turno_usuario);
             signal(SIGTERM, hijo_salir);
 
@@ -169,7 +168,7 @@ int main() {
                 sleep(rand() % 10 + 1);
             }
         }
-        else if (padre_hijo[1] == hijo_yo.getId()){
+        else if (jugadores[1].getId() == hijo_yo.getId()){
             signal(SIGINT, hijo_turno);
             signal(SIGTERM, hijo_salir);
 
@@ -182,7 +181,7 @@ int main() {
                 sleep(rand() % 10 + 1);
             }
         }
-        else if (padre_hijo[2] == hijo_yo.getId()){
+        else if (jugadores[2].getId() == hijo_yo.getId()){
             signal(SIGINT, hijo_turno);
             signal(SIGTERM, hijo_salir);
 
@@ -199,6 +198,6 @@ int main() {
             cout << "PLAYER ERROR" << endl;
             return -3;
         }
-    }*/
+    }
     return 0;
 }
