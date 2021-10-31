@@ -93,35 +93,35 @@ class Tablero{
 
     public:
         Tablero(){
-            tablero = new string[28];
-            tablero[0]="start";
-            tablero[1]="+50";
-            tablero[2]="+50";
-            tablero[3]="-25";
-            tablero[4]="b 2";
-            tablero[5]="+50";
-            tablero[6]="-25";
-            tablero[7]="jail";
-            tablero[8]="+75";
-            tablero[9]="-50";
-            tablero[10]="-50";
-            tablero[11]="+75";
-            tablero[12]="+75";
-            tablero[13]="b 3";
-            tablero[14]="free";
-            tablero[15]="f 3";
-            tablero[16]="+50";
-            tablero[17]="b 4";
-            tablero[18]="+50";
-            tablero[19]="-50";
-            tablero[20]="-25";
-            tablero[21]="jail";
-            tablero[22]="+75";
-            tablero[23]="f 5";
-            tablero[24]="+75";
-            tablero[25]="b 4";
-            tablero[26]="-25";
-            tablero[27]="-75";
+            this->tablero = new string[28];
+            this->tablero[0]="start";
+            this->tablero[1]="+50";
+            this->tablero[2]="+50";
+            this->tablero[3]="-25";
+            this->tablero[4]="b 2";
+            this->tablero[5]="+50";
+            this->tablero[6]="-25";
+            this->tablero[7]="jail";
+            this->tablero[8]="+75";
+            this->tablero[9]="-50";
+            this->tablero[10]="-50";
+            this->tablero[11]="+75";
+            this->tablero[12]="+75";
+            this->tablero[13]="b 3";
+            this->tablero[14]="free";
+            this->tablero[15]="f 3";
+            this->tablero[16]="+50";
+            this->tablero[17]="b 4";
+            this->tablero[18]="+50";
+            this->tablero[19]="-50";
+            this->tablero[20]="-25";
+            this->tablero[21]="jail";
+            this->tablero[22]="+75";
+            this->tablero[23]="f 5";
+            this->tablero[24]="+75";
+            this->tablero[25]="b 4";
+            this->tablero[26]="-25";
+            this->tablero[27]="-75";
         }
         ~Tablero(){
             delete[] this->tablero;
