@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unistd.h>
 #include <ctime>
 #include <cstdlib>
 #include <algorithm>
@@ -8,7 +9,7 @@ using namespace std;
 
 class jugador{
     private:
-        int id;
+        pid_t id;
         int pesos;
         int actual;
         int siguiente;
@@ -16,72 +17,71 @@ class jugador{
     
     public:
         jugador(){
-            id = 0;
             pesos = 0;
             actual = 0;
             siguiente = 0;
             turno = false;
         }
 
-        int getId(){
-            return id;
+        pid_t getId(){
+            return this->id;
         }
 
-        void setId(int id){
-            id = id;
+        void setId(pid_t newId){
+            this->id = newId;
         }
 
         bool getTurno(){
-            return turno;
+            return this->turno;
         }
 
         void setTurno(bool nuevo){
-            turno = nuevo;
+            this->turno = nuevo;
         }
 
         int getPesos(){
-            return pesos;
+            return this->pesos;
         }
 
         int getActual(){
-            return actual;
+            return this->actual;
         }
 
         int getSiguiente(){
-            return siguiente;
+            return this->siguiente;
         }
 
         int suma(int n){
-            pesos += n;
-            return pesos;
+            this->pesos += n;
+            return this->pesos;
         }
 
         int resta(int n){
-            pesos -= n;
-            return pesos;
+            this->pesos -= n;
+            return this->pesos;
         }
 
         void forward(int n){
             for(int i = 0; i < n; i++){
-                actual++;
+                this->actual++;
             }
             if(actual > 28){
-                actual = actual%28;
+                this->actual = this->actual%28;
             }
         }
 
         void backward(int n){
             for(int i = 0; i < n; i++){
-                actual--;
+                this->actual--;
             }
             if(actual < 0){
-                actual = (28-actual)%28;
+                this->actual = (28-this->actual)%28;
             }
         }
         void dado(){
             int ran = (rand() % 6) + 1;
-            siguiente = ran;
-            forward(siguiente);
+            this->siguiente = ran;
+            this->forward(this->siguiente);
         }
 
 };
@@ -124,7 +124,7 @@ class Tablero{
             tablero[27]="-75";
         }
         ~Tablero(){
-            delete[] tablero;
+            delete[] this->tablero;
         }
         void start(jugador j){
             j.suma(100);
@@ -148,52 +148,52 @@ class Tablero{
         }
         void avance(jugador j, int n){
             j.forward(n);
-            ejecutar(j);
+            this->ejecutar(j);
         }
         void retroceso(jugador j, int n){
             j.backward(n);
-            ejecutar(j);
+            this->ejecutar(j);
         }
         void ejecutar(jugador j){
-            string s = tablero[j.getActual()];
+            string s = this->tablero[j.getActual()];
             if(s == "+75"){
-                plus(j,75);
+                this->plus(j,75);
             }
             else if(s == "+50"){
-                plus(j,50);
+                this->plus(j,50);
             }
             else if(s == "-25"){
-                minus(j,25);
+                this->minus(j,25);
             }
             else if(s == "-50"){
-                minus(j,50);
+                this->minus(j,50);
             }
             else if(s == "-75"){
-                minus(j,75);
+                this->minus(j,75);
             }
             else if(s == "b 2"){
-                retroceso(j,2);
+                this->retroceso(j,2);
             }
             else if(s == "b 3"){
-                retroceso(j,3);
+                this->retroceso(j,3);
             }
             else if(s == "b 4"){
-                retroceso(j,4);
+                this->retroceso(j,4);
             }
             else if(s == "f 3"){
-                avance(j,3);
+                this->avance(j,3);
             }
             else if(s == "f 5"){
-                avance(j,5);
+                this->avance(j,5);
             }
             else if(s == "start"){
-                start(j);
+                this->start(j);
             }
             else if(s == "jail"){
-                jail(j);
+                this->jail(j);
             }
             else if(s == "free"){
-                free(j);
+                this->free(j);
             }
             else{
                 return;
@@ -215,7 +215,7 @@ class Tablero{
                     temp[i] == "J 3";
                 }
                 else{
-                    temp[i] == tablero[i];
+                    temp[i] == this->tablero[i];
                 }
             }
 
