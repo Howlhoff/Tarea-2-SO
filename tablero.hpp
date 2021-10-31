@@ -209,13 +209,13 @@ class Tablero{
                     temp[i] = "J 1";
                 }
                 else if (i == pos[1]){
-                    temp[i] == "J 2";
+                    temp[i] = "J 2";
                 }
                 else if (i == pos[2]){
-                    temp[i] == "J 3";
+                    temp[i] = "J 3";
                 }
                 else{
-                    temp[i] == this->tablero[i];
+                    temp[i] = this->tablero[i];
                 }
             }
 
