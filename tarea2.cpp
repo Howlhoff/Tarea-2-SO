@@ -36,7 +36,7 @@ void hijo_turno_usuario(int signal_number){
             Player1.dado();
             break;
         case 2:
-            tablero.ejecutar(hijo_yo);
+            tablero.ejecutar(Player1);
             flag = false;
             break;
         case 3:
@@ -53,7 +53,7 @@ void hijo_turno_usuario(int signal_number){
 
     //Final de la funcion
     hijo_yo = Player1;
-    
+
     if(hijo_yo.getPesos() >= 500){
         kill(todos_padre,SIGTERM);
     }
@@ -63,10 +63,17 @@ void hijo_turno_usuario(int signal_number){
 }
 
 void hijo_turno(int signal_number){
+    cout << "Jugador " << hijo_yo.getId() << " jugando..." << endl;
+
+    jugador PlayerX = hijo_yo;
+
     //Jugada
-    hijo_yo.dado();
-    tablero.ejecutar(hijo_yo);
+    PlayerX.dado();
+    tablero.ejecutar(PlayerX);
+
     //Final de la funcion
+    hijo_yo = PlayerX;
+
     if(hijo_yo.getPesos() >= 500){
         kill(todos_padre,SIGTERM);
     }
