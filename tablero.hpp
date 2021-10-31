@@ -255,13 +255,13 @@ class Tablero{
 
             //Dado
             if(j1.getTurno() == true){
-                cout << "El dado toco: "<< j1.getSiguiente() << endl;
+                cout << "Dado: "<< j1.getSiguiente() << endl;
             }
             else if(j2.getTurno() == true){
-                cout << "El dado toco: "<< j2.getSiguiente() << endl;
+                cout << "Dado: "<< j2.getSiguiente() << endl;
             }
             else if(j2.getTurno() == true){
-                cout << "El dado toco: "<< j3.getSiguiente() << endl;
+                cout << "Dado: "<< j3.getSiguiente() << endl;
             }
             else{
                 cout << "Ningun jugador ha tirado el dado" << endl;

@@ -7,7 +7,7 @@ using namespace std;
 
 int hijos = 3;
 
-int todos_padre;
+pid_t todos_padre;
 jugador hijo_yo;
 jugador jugadores[3];
 int hijo_con_turno;
@@ -23,6 +23,9 @@ void hijo_turno_usuario(int signal_number){
     //Jugada
     int n;
     bool flag =  true;
+    jugador Player1 = hijo_yo;
+    Player1.setTurno(true);
+    
     cout << "\nMenu:\n1. Tirar dado\n2. Ejecutar accion\n3. Ver el tablero actual\n4. Este menu." << endl;
     cout << "\nTu turno!\n" << endl;
     while(flag){
@@ -30,14 +33,14 @@ void hijo_turno_usuario(int signal_number){
         cin >> n;
         switch(n){
         case 1:
-            hijo_yo.dado();
+            Player1.dado();
             break;
         case 2:
             tablero.ejecutar(hijo_yo);
             flag = false;
             break;
         case 3:
-            tablero.show(jugadores[0],jugadores[1],jugadores[2]);
+            tablero.show(Player1,jugadores[1],jugadores[2]);
             break;
         case 4:
             cout << "Menu:\n1. Tirar dado\n2. Ejecutar accion\n3. Ver el tablero actual\n4. Este menu." << endl;
@@ -49,6 +52,8 @@ void hijo_turno_usuario(int signal_number){
     }
 
     //Final de la funcion
+    hijo_yo = Player1;
+    
     if(hijo_yo.getPesos() >= 500){
         kill(todos_padre,SIGTERM);
     }
