@@ -235,7 +235,7 @@ class Tablero{
             cout << "|-----|\t\t\t\t\t  |-----|" << endl;
             cout << "| " << temp[1] << " |\t\t\t\t\t  | " << temp[20] << " |" << endl;
             cout << "|-----|\t\t\t\t\t  |-----|" << endl;
-            cout << "|" << temp[0] << "| " << temp[27] << " | " << temp[26] << " | " << temp[25] << " | " << temp[24] << " | " << temp[23] << " | " << temp[22] << " |" << temp[21] << " |" << endl;
+            cout << "| " << temp[0] << " | " << temp[27] << " | " << temp[26] << " | " << temp[25] << " | " << temp[24] << " | " << temp[23] << " | " << temp[22] << " |" << temp[21] << " |" << endl;
             cout << "|_______________________________________________|" << endl;
 
             //El resto

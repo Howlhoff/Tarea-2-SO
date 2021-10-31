@@ -23,7 +23,8 @@ void hijo_turno_usuario(int signal_number){
     //Jugada
     int n;
     bool flag =  true;
-    cout << "Tu turno: " << endl;
+    cout << "\nMenu:\n1. Tirar dado\n2. Ejecutar accion\n3. Ver el tablero actual\n4. Este menu." << endl;
+    cout << "\nTu turno!\n" << endl;
     while(flag){
         cout << "> ";
         cin >> n;
