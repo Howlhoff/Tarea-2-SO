@@ -144,6 +144,8 @@ int main() {
                 if (i == 0){
                     tablero.show(jugadores[0], jugadores[1], jugadores[2]);
                 }
+
+                cout << "\nJugador " << i+1 << " jugando..." << endl;
                 kill(padre_hijo[i],SIGINT);
 
                 while(padre_esperando_a_hijo && !padre_hayUnGanador){
