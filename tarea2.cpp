@@ -196,7 +196,7 @@ int main() {
                     return -2;
                 }
 
-                sleep(rand() % 3 + 2);
+                sleep(5);
             }
         }
         else if (jugadores[2].getId() == hijo_yo.getId()){
@@ -209,7 +209,7 @@ int main() {
                     return -2;
                 }
 
-                sleep(rand() % 3 + 3);
+                sleep(5);
             }
         }
         else {
