@@ -37,7 +37,7 @@ void hijo_turno_usuario(int signal_number){
             cout << "Dado: " << Player1.getSiguiente() << endl;
             break;
         case 2:
-            tablero.ejecutar(Player1);
+            Player1.play(tablero.getTablero());
             flag = false;
             break;
         case 3:
@@ -51,6 +51,7 @@ void hijo_turno_usuario(int signal_number){
 
     //Final de la funcion
     hijo_yo = Player1;
+    cout << hijo_yo.getPesos() << endl;
 
     if(hijo_yo.getPesos() >= 500){
         kill(todos_padre,SIGTERM);
@@ -69,7 +70,7 @@ void hijo_turno(int signal_number){
     //Jugada
     PlayerX.dado();
     cout << "Dado: " << PlayerX.getSiguiente() << endl;
-    tablero.ejecutar(PlayerX);
+    PlayerX.play(tablero.getTablero());
 
     //Final de la funcion
     hijo_yo = PlayerX;
@@ -166,7 +167,7 @@ int main() {
                     cout << "PLAYER PIPE 3 READ ERROR" << endl;
                     return -4;
                 }
-                tablero.ejecutar(jugadores[i]);
+                
 
                 cout << "DAD CHECK: POST-TURN" << endl;
             }

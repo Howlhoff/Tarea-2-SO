@@ -14,10 +14,11 @@ class jugador{
         int actual;
         int siguiente;
         bool turno;
+        bool inJail;
     
     public:
         jugador(){
-            pesos = 0;
+            pesos = 100; // Se parte en 100 por que todos los jugadores empiezan en start
             actual = 0;
             siguiente = 0;
             turno = false;
@@ -83,6 +84,53 @@ class jugador{
             this->siguiente = ran;
             this->forward(this->siguiente);
         }
+        void play(string* table){
+            string s = table[this->actual];
+            if(s == "+75"){
+                this->suma(75);
+            }
+            else if(s == "+50"){
+                this->suma(50);
+            }
+            else if(s == "-25"){
+                this->resta(25);
+            }
+            else if(s == "-50"){
+                this->resta(50);
+            }
+            else if(s == "-75"){
+                this->resta(75);
+            }
+            else if(s == "b 2"){
+                this->backward(2);
+            }
+            else if(s == "b 3"){
+                this->backward(3);
+            }
+            else if(s == "b 4"){
+                this->backward(4);
+            }
+            else if(s == "f 3"){
+                this->forward(3);
+            }
+            else if(s == "f 5"){
+                this->forward(5);
+            }
+            else if(s == "start"){
+                this->suma(100);
+            }
+            else if(s == "jail"){
+                if (this->inJail == false){
+                    this->inJail = true;
+                }
+                else {
+                    this->inJail = false;
+                }
+            }
+            else{
+                return;
+            }
+        }
 
 };
 
@@ -126,78 +174,8 @@ class Tablero{
         ~Tablero(){
             delete[] this->tablero;
         }
-        void start(jugador j){
-            j.suma(100);
-        }
-        void jail(jugador j){
-            if(j.getTurno()==true){
-                j.setTurno(false);
-            }
-            else{
-                j.setTurno(true);
-            }
-        }
-        void free(jugador j){
-            j.setTurno(true);
-        }
-        void plus(jugador j, int n){
-            j.suma(n);
-        }
-        void minus(jugador j, int n){
-            j.resta(n);
-        }
-        void avance(jugador j, int n){
-            j.forward(n);
-            this->ejecutar(j);
-        }
-        void retroceso(jugador j, int n){
-            j.backward(n);
-            this->ejecutar(j);
-        }
-        void ejecutar(jugador j){
-            string s = this->tablero[j.getActual()];
-            if(s == "+75"){
-                this->plus(j,75);
-            }
-            else if(s == "+50"){
-                this->plus(j,50);
-            }
-            else if(s == "-25"){
-                this->minus(j,25);
-            }
-            else if(s == "-50"){
-                this->minus(j,50);
-            }
-            else if(s == "-75"){
-                this->minus(j,75);
-            }
-            else if(s == "b 2"){
-                this->retroceso(j,2);
-            }
-            else if(s == "b 3"){
-                this->retroceso(j,3);
-            }
-            else if(s == "b 4"){
-                this->retroceso(j,4);
-            }
-            else if(s == "f 3"){
-                this->avance(j,3);
-            }
-            else if(s == "f 5"){
-                this->avance(j,5);
-            }
-            else if(s == "start"){
-                this->start(j);
-            }
-            else if(s == "jail"){
-                this->jail(j);
-            }
-            else if(s == "free"){
-                this->free(j);
-            }
-            else{
-                return;
-            }
+        string* getTablero(){
+            return this->tablero;
         }
 
         void show(jugador j1, jugador j2, jugador j3){
