@@ -80,9 +80,14 @@ class jugador{
             }
         }
         void dado(){
-            int ran = (rand() % 6) + 1;
-            this->siguiente = ran;
-            this->forward(this->siguiente);
+            if (this->inJail == false){
+                int ran = (rand() % 6) + 1;
+                this->siguiente = ran;
+                this->forward(this->siguiente);
+            }
+            else {
+                cout << "Jugador en la carcel, debe saltar su turno." << endl;
+            }
         }
         void play(string* table){
             string s = table[this->actual];
@@ -103,18 +108,23 @@ class jugador{
             }
             else if(s == "b 2"){
                 this->backward(2);
+                this->play(table);
             }
             else if(s == "b 3"){
                 this->backward(3);
+                this->play(table);
             }
             else if(s == "b 4"){
                 this->backward(4);
+                this->play(table);
             }
             else if(s == "f 3"){
                 this->forward(3);
+                this->play(table);
             }
             else if(s == "f 5"){
                 this->forward(5);
+                this->play(table);
             }
             else if(s == "start"){
                 this->suma(100);

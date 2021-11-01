@@ -51,7 +51,6 @@ void hijo_turno_usuario(int signal_number){
 
     //Final de la funcion
     hijo_yo = Player1;
-    cout << hijo_yo.getPesos() << endl;
 
     if(hijo_yo.getPesos() >= 500){
         kill(todos_padre,SIGTERM);
@@ -62,10 +61,7 @@ void hijo_turno_usuario(int signal_number){
 }
 
 void hijo_turno(int signal_number){
-    cout << "Jugador " << hijo_yo.getId() << " jugando..." << endl;
-
     jugador PlayerX = hijo_yo;
-    srand(time(NULL));
 
     //Jugada
     PlayerX.dado();
@@ -97,6 +93,8 @@ void padre_el_hijo_movio(int signal_number){
 
 int main() {
     // Set up
+    srand(time(NULL));
+
     int fd1[2];
     int fd2[2];
     int fd3[2];
@@ -167,9 +165,6 @@ int main() {
                     cout << "PLAYER PIPE 3 READ ERROR" << endl;
                     return -4;
                 }
-                
-
-                cout << "DAD CHECK: POST-TURN" << endl;
             }
         }
     }
@@ -188,7 +183,7 @@ int main() {
                     return -2;
                 }
 
-                sleep(rand() % 10 + 1);
+                sleep(rand() % 3 + 1);
             }
         }
         else if (jugadores[1].getId() == hijo_yo.getId()){
@@ -201,7 +196,7 @@ int main() {
                     return -2;
                 }
 
-                sleep(rand() % 10 + 1);
+                sleep(rand() % 3 + 2);
             }
         }
         else if (jugadores[2].getId() == hijo_yo.getId()){
@@ -214,7 +209,7 @@ int main() {
                     return -2;
                 }
 
-                sleep(rand() % 10 + 1);
+                sleep(rand() % 3 + 3);
             }
         }
         else {
