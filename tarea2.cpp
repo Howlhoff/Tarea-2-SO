@@ -204,7 +204,7 @@ int main() {
                     cout << "PIPE 1 WRITE ERROR" << endl;
                     return -2;
                 }
-                sleep(rand()%4+1);
+                sleep(rand()%5+2);
             }
         }
         else if (jugadores[1].getId() == hijo_yo.getId()){
@@ -216,7 +216,7 @@ int main() {
                     cout << "PIPE 2 WRITE ERROR" << endl;
                     return -2;
                 }
-                sleep(rand()%5+2);
+                sleep(rand()%6+3);
             }
         }
         else if (jugadores[2].getId() == hijo_yo.getId()){
@@ -228,7 +228,7 @@ int main() {
                     cout << "PIPE 3 WRITE ERROR" << endl;
                     return -2;
                 }
-                sleep(rand()%6+3);
+                sleep(rand()%7+3);
             }
         }
         else {
