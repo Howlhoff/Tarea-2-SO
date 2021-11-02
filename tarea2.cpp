@@ -172,7 +172,6 @@ int main() {
         signal(SIGINT, padre_el_hijo_movio);
         tablero.show(jugadores[0], jugadores[1], jugadores[2]);
         while(!padre_hayUnGanador){
-            usleep(1000);
             for(int i = 0; i < hijos; i++){
                 padre_hijo_actual = i;
                 padre_esperando_a_hijo = true;
@@ -181,7 +180,7 @@ int main() {
                 kill(padre_hijo[i],SIGINT);
 
                 while(padre_esperando_a_hijo && !padre_hayUnGanador){
-                    usleep(100);
+                    sleep(5);
                 }
                 if(padre_hayUnGanador){
                     break;

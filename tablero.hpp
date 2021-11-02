@@ -166,6 +166,12 @@ class jugador{
                     cerr << "bad_alloc CAUGHT IN JAIL" << endl;
                 }
             }
+            else if(s == "start"){
+                try{this->suma(100);}
+                catch(bad_alloc& ba){
+                    cerr << "bad_alloc CAUGHT IN +50" << endl;
+                }
+            }
             else{
                 return;
             }
