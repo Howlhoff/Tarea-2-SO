@@ -13,7 +13,6 @@ class jugador{
         int pesos;
         int actual;
         int siguiente;
-        bool turno;
         bool inJail;
     
     public:
@@ -21,7 +20,7 @@ class jugador{
             pesos = 100; // Se parte en 100 por que todos los jugadores empiezan en start
             actual = 0;
             siguiente = 0;
-            turno = false;
+            inJail = false;
         }
 
         pid_t getId(){
@@ -30,14 +29,6 @@ class jugador{
 
         void setId(pid_t newId){
             this->id = newId;
-        }
-
-        bool getTurno(){
-            return this->turno;
-        }
-
-        void setTurno(bool nuevo){
-            this->turno = nuevo;
         }
 
         int getPesos(){

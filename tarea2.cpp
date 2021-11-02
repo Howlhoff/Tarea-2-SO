@@ -24,7 +24,6 @@ void hijo_turno_usuario(int signal_number){
     int n;
     bool flag =  true;
     jugador Player1 = hijo_yo;
-    Player1.setTurno(true);
     
     cout << "Menu:\t1. Tirar dado\t2. Ejecutar accion\t3. Este menu." << endl;
     cout << "\nTu turno!\n" << endl;
@@ -135,6 +134,7 @@ int main() {
         sleep(1);
         signal(SIGTERM, padre_terminar_hijo);
         signal(SIGINT, padre_el_hijo_movio);
+        
         while(!padre_hayUnGanador){
             for(int i = 0; i < hijos; i++){
                 padre_hijo_actual = i;
@@ -157,11 +157,11 @@ int main() {
                     cout << "PLAYER PIPE 1 READ ERROR" << endl;
                     return -4;
                 }
-                else if (read(fd2[0], &jugadores[1], sizeof(jugador)) == -1){
+                if (read(fd2[0], &jugadores[1], sizeof(jugador)) == -1){
                     cout << "PLAYER PIPE 2 READ ERROR" << endl;
                     return -4;
                 }
-                else if (read(fd3[0], &jugadores[2], sizeof(jugador)) == -1){
+                if (read(fd3[0], &jugadores[2], sizeof(jugador)) == -1){
                     cout << "PLAYER PIPE 3 READ ERROR" << endl;
                     return -4;
                 }
@@ -183,7 +183,7 @@ int main() {
                     return -2;
                 }
 
-                sleep(rand() % 3 + 1);
+                sleep(1);
             }
         }
         else if (jugadores[1].getId() == hijo_yo.getId()){
@@ -196,7 +196,7 @@ int main() {
                     return -2;
                 }
 
-                sleep(5);
+                sleep(rand()%3+2);
             }
         }
         else if (jugadores[2].getId() == hijo_yo.getId()){
@@ -209,7 +209,7 @@ int main() {
                     return -2;
                 }
 
-                sleep(5);
+                sleep(rand()%6+3);
             }
         }
         else {
