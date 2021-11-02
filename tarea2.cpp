@@ -36,7 +36,10 @@ void hijo_turno_usuario(int signal_number){
             cout << "Dado: " << Player1.getSiguiente() << endl;
             break;
         case 2:
-            Player1.play(tablero.getTablero());
+            try{Player1.play(tablero.getTablero());}
+            catch(bad_alloc& ba){
+                cerr << "bad_alloc CAUGHT IN PLAYER1" << endl;
+            }
             flag = false;
             break;
         case 3:
@@ -44,6 +47,8 @@ void hijo_turno_usuario(int signal_number){
             break;
         default:
             cout << "Ingrese un valor valido" << endl;
+            cout << ">" << endl;
+            cin >> n;
             break;
         }
     }
@@ -65,7 +70,10 @@ void hijo_turno(int signal_number){
     //Jugada
     PlayerX.dado();
     cout << "Dado: " << PlayerX.getSiguiente() << endl;
-    PlayerX.play(tablero.getTablero());
+    try{PlayerX.play(tablero.getTablero());}
+    catch(bad_alloc& ba){
+        cerr << "bad_alloc CAUGHT IN PLAYERX" << endl;
+    }
 
     //Final de la funcion
     hijo_yo = PlayerX;
@@ -136,13 +144,11 @@ int main() {
         signal(SIGINT, padre_el_hijo_movio);
         
         while(!padre_hayUnGanador){
+            usleep(1000);
+            tablero.show(jugadores[0], jugadores[1], jugadores[2]);
             for(int i = 0; i < hijos; i++){
                 padre_hijo_actual = i;
                 padre_esperando_a_hijo = true;
-
-                if (i == 0){
-                    tablero.show(jugadores[0], jugadores[1], jugadores[2]);
-                }
 
                 cout << "\nJugador " << i+1 << " jugando..." << endl;
                 kill(padre_hijo[i],SIGINT);
