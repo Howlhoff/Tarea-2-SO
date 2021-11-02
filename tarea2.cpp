@@ -75,6 +75,7 @@ void hijo_turno_usuario(int signal_number){
 
 void hijo_turno(int signal_number){
     jugador PlayerX = hijo_yo;
+    string c;
 
     //Jugada
     PlayerX.dado();
@@ -86,6 +87,9 @@ void hijo_turno(int signal_number){
 
     //Final de la funcion
     hijo_yo = PlayerX;
+    cout << "Turno terminado." << endl;
+    cout << "Escriba algo para continuar:\n>";
+    cin >> c;
 
     if(hijo_yo.getPesos() >= 500){
         kill(todos_padre,SIGTERM);
