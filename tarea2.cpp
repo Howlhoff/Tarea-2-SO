@@ -100,18 +100,28 @@ void hijo_salir(int signal_number){
 }
 
 void padre_terminar_hijo(int signal_number){
+    if (jugadores[0].getPesos() > 499){
+        cout << "Tenemos un ganador! Felicidades, Jugador 1" << endl;
+    } else if (jugadores[1].getPesos() > 499){
+        cout << "Tenemos un ganador! Felicidades, Jugador 2" << endl;
+    } else if (jugadores[2].getPesos() > 499){
+        cout << "Tenemos un ganador! Felicidades, Jugador 3" << endl;
+    }
+    else {
+        cout << "Algo gano pero todos perdieron \t [[Hyperlink Blocked]]" << endl;
+    }
     padre_hayUnGanador = true;
 }
 
 void padre_el_hijo_movio(int signal_number){
-    if (read(fd1[0], &jugadores[0], sizeof(jugador)) == -1){
-        cout << "PLAYER PIPE 1 READ ERROR" << endl;
-    }
     if (read(fd2[0], &jugadores[1], sizeof(jugador)) == -1){
         cout << "PLAYER PIPE 2 READ ERROR" << endl;
     }
     if (read(fd3[0], &jugadores[2], sizeof(jugador)) == -1){
         cout << "PLAYER PIPE 3 READ ERROR" << endl;
+    }
+    if (read(fd1[0], &jugadores[0], sizeof(jugador)) == -1){
+        cout << "PLAYER PIPE 1 READ ERROR" << endl;
     }
     padre_esperando_a_hijo = false;
 }
@@ -156,12 +166,9 @@ int main() {
         sleep(1);
         signal(SIGTERM, padre_terminar_hijo);
         signal(SIGINT, padre_el_hijo_movio);
-        
+        tablero.show(jugadores[0], jugadores[1], jugadores[2]);
         while(!padre_hayUnGanador){
             usleep(1000);
-            cout << "J1 - Dinero: $" << jugadores[0].getPesos() << "\t Posicion: " << jugadores[0].getActual() << endl;
-            cout << "J2 - Dinero: $" << jugadores[1].getPesos() << "\t Posicion: " << jugadores[1].getActual() << endl;
-            cout << "J3 - Dinero: $" << jugadores[2].getPesos() << "\t Posicion: " << jugadores[2].getActual() << endl;
             for(int i = 0; i < hijos; i++){
                 padre_hijo_actual = i;
                 padre_esperando_a_hijo = true;
@@ -176,6 +183,7 @@ int main() {
                     break;
                 }
             }
+            tablero.show(jugadores[0], jugadores[1], jugadores[2]);
         }
     }
     else{
@@ -192,7 +200,7 @@ int main() {
                     cout << "PIPE 1 WRITE ERROR" << endl;
                     return -2;
                 }
-                sleep(1);
+                sleep(rand()%4+1);
             }
         }
         else if (jugadores[1].getId() == hijo_yo.getId()){
@@ -204,7 +212,7 @@ int main() {
                     cout << "PIPE 2 WRITE ERROR" << endl;
                     return -2;
                 }
-                sleep(rand()%3+2);
+                sleep(rand()%5+2);
             }
         }
         else if (jugadores[2].getId() == hijo_yo.getId()){
