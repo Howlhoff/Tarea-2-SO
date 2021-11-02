@@ -1,8 +1,8 @@
 program:
-	g++ tarea1.cpp -o tarea1 -Wall
+	g++ tarea2.cpp -o tarea2 -Wall
 .PHONY: run
 .PHONY: clean
 run: program
-	./tarea1
+	./tarea2
 clean:
-	rm ./tarea1
+	rm ./tarea2
