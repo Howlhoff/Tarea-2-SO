@@ -83,49 +83,97 @@ class jugador{
         void play(string* table){
             string s = table[this->actual];
             if(s == "+75"){
-                this->suma(75);
+                try{this->suma(75);}
+                catch(bad_alloc& ba){
+                    cerr << "bad_alloc CAUGHT IN +75" << endl;
+                }
             }
             else if(s == "+50"){
-                this->suma(50);
+                try{this->suma(50);}
+                catch(bad_alloc& ba){
+                    cerr << "bad_alloc CAUGHT IN +50" << endl;
+                }
             }
             else if(s == "-25"){
-                this->resta(25);
+                try{this->resta(25);}
+                catch(bad_alloc& ba){
+                    cerr << "bad_alloc CAUGHT IN -25" << endl;
+                }
             }
             else if(s == "-50"){
-                this->resta(50);
+                try{this->resta(50);}
+                catch(bad_alloc& ba){
+                    cerr << "bad_alloc CAUGHT IN -50" << endl;
+                }
             }
             else if(s == "-75"){
-                this->resta(75);
+                try{this->resta(75);}
+                catch(bad_alloc& ba){
+                    cerr << "bad_alloc CAUGHT IN -75" << endl;
+                }
             }
             else if(s == "b 2"){
-                this->backward(2);
-                this->play(table);
+                try {
+                    this->backward(2);
+                    this->play(table);
+                }
+                catch(bad_alloc& ba){
+                    cerr << "bad_alloc CAUGHT IN B2" << endl;
+                }
             }
             else if(s == "b 3"){
-                this->backward(3);
-                this->play(table);
+                try{
+                    this->backward(3);
+                    this->play(table);
+                }
+                catch(bad_alloc& ba){
+                    cerr << "bad_alloc CAUGHT IN B3" << endl;
+                }
             }
             else if(s == "b 4"){
-                this->backward(4);
-                this->play(table);
+                try{
+                    this->backward(4);
+                    this->play(table);
+                }
+                catch(bad_alloc& ba){
+                    cerr << "bad_alloc CAUGHT IN B4" << endl;
+                }
             }
             else if(s == "f 3"){
-                this->forward(3);
-                this->play(table);
+                try{
+                    this->forward(3);
+                    this->play(table);
+                }
+                catch(bad_alloc& ba){
+                    cerr << "bad_alloc CAUGHT IN F3" << endl;
+                }
             }
             else if(s == "f 5"){
-                this->forward(5);
-                this->play(table);
+                try{
+                    this->forward(5);
+                    this->play(table);
+                }
+                catch(bad_alloc& ba){
+                    cerr << "bad_alloc CAUGHT IN F5" << endl;
+                }
             }
             else if(s == "start"){
-                this->suma(100);
+                try{this->suma(100);}
+                catch(bad_alloc& ba){
+                    cerr << "bad_alloc CAUGHT IN START" << endl;
+                }
             }
             else if(s == "jail"){
-                if (this->inJail == false){
-                    this->inJail = true;
+                try{
+                    if (this->inJail == false){
+                        this->inJail = true;
+                    }
+                    else {
+                        this->inJail = false;
+                    }
                 }
-                else {
-                    this->inJail = false;
+                catch(bad_alloc& ba){
+                    cerr << "bad_alloc CAUGHT IN JAIL" << endl;
                 }
             }
             else{
@@ -219,8 +267,8 @@ class Tablero{
 
             //Cantidad de cada jugador
 
-            cout << "Dinero actual de J1: " << j1.getPesos() << endl;
-            cout << "Dinero actual de J2: " << j2.getPesos() << endl;
-            cout << "Dinero actual de J3: " << j3.getPesos() << endl;
+            cout << "J1 - Dinero: $" << j1.getPesos() << "\t Posicion: " << j1.getActual() << endl;
+            cout << "J2 - Dinero: $" << j2.getPesos() << "\t Posicion: " << j2.getActual() << endl;
+            cout << "J3 - Dinero: $" << j3.getPesos() << "\t Posicion: " << j3.getActual() << endl;
         }
 };
