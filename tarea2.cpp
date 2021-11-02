@@ -10,14 +10,23 @@ int hijos = 3;
 pid_t todos_padre;
 jugador hijo_yo;
 jugador jugadores[3];
+
 int hijo_con_turno;
 int hijo_cntTurno;
+
 bool hijo_debe_salir;
 int padre_hijo[3];
 int padre_hijo_actual;
+
 bool padre_esperando_a_hijo;
 bool padre_hayUnGanador;
+
 Tablero tablero;
+
+
+int fd1[2];
+int fd2[2];
+int fd3[2];
 
 void hijo_turno_usuario(int signal_number){
     //Jugada
@@ -95,16 +104,21 @@ void padre_terminar_hijo(int signal_number){
 }
 
 void padre_el_hijo_movio(int signal_number){
+    if (read(fd1[0], &jugadores[0], sizeof(jugador)) == -1){
+        cout << "PLAYER PIPE 1 READ ERROR" << endl;
+    }
+    if (read(fd2[0], &jugadores[1], sizeof(jugador)) == -1){
+        cout << "PLAYER PIPE 2 READ ERROR" << endl;
+    }
+    if (read(fd3[0], &jugadores[2], sizeof(jugador)) == -1){
+        cout << "PLAYER PIPE 3 READ ERROR" << endl;
+    }
     padre_esperando_a_hijo = false;
 }
 
 int main() {
     // Set up
     srand(time(NULL));
-
-    int fd1[2];
-    int fd2[2];
-    int fd3[2];
 
     if(pipe(fd1) == -1){
         cout << "PLAYER PIPE 1 CREATION ERROR" << endl;
@@ -145,7 +159,9 @@ int main() {
         
         while(!padre_hayUnGanador){
             usleep(1000);
-            tablero.show(jugadores[0], jugadores[1], jugadores[2]);
+            cout << "J1 - Dinero: $" << jugadores[0].getPesos() << "\t Posicion: " << jugadores[0].getActual() << endl;
+            cout << "J2 - Dinero: $" << jugadores[1].getPesos() << "\t Posicion: " << jugadores[1].getActual() << endl;
+            cout << "J3 - Dinero: $" << jugadores[2].getPesos() << "\t Posicion: " << jugadores[2].getActual() << endl;
             for(int i = 0; i < hijos; i++){
                 padre_hijo_actual = i;
                 padre_esperando_a_hijo = true;
@@ -158,18 +174,6 @@ int main() {
                 }
                 if(padre_hayUnGanador){
                     break;
-                }
-                if (read(fd1[0], &jugadores[0], sizeof(jugador)) == -1){
-                    cout << "PLAYER PIPE 1 READ ERROR" << endl;
-                    return -4;
-                }
-                if (read(fd2[0], &jugadores[1], sizeof(jugador)) == -1){
-                    cout << "PLAYER PIPE 2 READ ERROR" << endl;
-                    return -4;
-                }
-                if (read(fd3[0], &jugadores[2], sizeof(jugador)) == -1){
-                    cout << "PLAYER PIPE 3 READ ERROR" << endl;
-                    return -4;
                 }
             }
         }
@@ -188,7 +192,6 @@ int main() {
                     cout << "PIPE 1 WRITE ERROR" << endl;
                     return -2;
                 }
-
                 sleep(1);
             }
         }
@@ -201,7 +204,6 @@ int main() {
                     cout << "PIPE 2 WRITE ERROR" << endl;
                     return -2;
                 }
-
                 sleep(rand()%3+2);
             }
         }
@@ -214,7 +216,6 @@ int main() {
                     cout << "PIPE 3 WRITE ERROR" << endl;
                     return -2;
                 }
-
                 sleep(rand()%6+3);
             }
         }

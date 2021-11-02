@@ -12,7 +12,7 @@ class jugador{
         pid_t id;
         int pesos;
         int actual;
-        int siguiente;
+        int siguiente; //atributo para guardar el dado
         bool inJail;
     
     public:
@@ -54,21 +54,17 @@ class jugador{
         }
 
         void forward(int n){
-            for(int i = 0; i < n; i++){
-                this->actual++;
+            if (this->actual + n > 27){ // en este caso se cruza por start
+                this->actual = (this->actual+n)%28; // nueva posicion
+                this->suma(100); // sumarle los 100 que se ganan al cruzar start
             }
-            if(actual > 28){
-                this->actual = this->actual%28;
+            else{
+                this->actual += n;
             }
         }
 
         void backward(int n){
-            for(int i = 0; i < n; i++){
-                this->actual--;
-            }
-            if(actual < 0){
-                this->actual = (28-this->actual)%28;
-            }
+            this->actual -= n;
         }
         void dado(){
             if (this->inJail == false){
@@ -155,12 +151,6 @@ class jugador{
                 }
                 catch(bad_alloc& ba){
                     cerr << "bad_alloc CAUGHT IN F5" << endl;
-                }
-            }
-            else if(s == "start"){
-                try{this->suma(100);}
-                catch(bad_alloc& ba){
-                    cerr << "bad_alloc CAUGHT IN START" << endl;
                 }
             }
             else if(s == "jail"){
