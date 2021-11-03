@@ -23,35 +23,131 @@ class jugador{
             inJail = false;
         }
 
+        /*****
+        * void getId
+        ******
+        * Getter del atributo 'id'
+        ******
+        * Input:
+        * Sin input
+        ******
+        * Returns:
+        * El valor actual del atributo id
+        *****/
+
         pid_t getId(){
             return this->id;
         }
+
+        /*****
+        * void getId
+        ******
+        * Setter del atributo 'id'
+        ******
+        * Input:
+        * pid_t newId: nuevo valor del atributo 'id'
+        ******
+        * Returns:
+        * Sin retorno
+        *****/
 
         void setId(pid_t newId){
             this->id = newId;
         }
 
+        /*****
+        * void getPesos
+        ******
+        * Getter del atributo 'pesos'
+        ******
+        * Input:
+        * Sin input
+        ******
+        * Returns:
+        * El valor actual del atributo 'pesos'
+        *****/
+
         int getPesos(){
             return this->pesos;
         }
+
+        /*****
+        * void getActual
+        ******
+        * Getter del atributo 'actual'
+        ******
+        * Input:
+        * Sin input
+        ******
+        * Returns:
+        * El valor actual del atributo 'actual'
+        *****/
 
         int getActual(){
             return this->actual;
         }
 
+        /*****
+        * void getSiguiente
+        ******
+        * Getter del atributo 'siguiente'
+        ******
+        * Input:
+        * Sin input
+        ******
+        * Returns:
+        * El valor actual del atributo 'siguiente'
+        *****/
+
         int getSiguiente(){
             return this->siguiente;
         }
+
+        /*****
+        * void suma
+        ******
+        * Paga al jugador n pesos
+        ******
+        * Input:
+        * int n: Dinero a pagar
+        ******
+        * Returns:
+        * Sin retorno
+        *****/
 
         int suma(int n){
             this->pesos += n;
             return this->pesos;
         }
 
+        /*****
+        * void resta
+        ******
+        * Cobra al jugador n pesos
+        ******
+        * Input:
+        * int n: dinero a cobrar
+        ******
+        * Returns:
+        * Sin retorno
+        *****/
+
         int resta(int n){
             this->pesos -= n;
             return this->pesos;
         }
+
+        /*****
+        * void forward
+        ******
+        * Avanza al jugador de n espacios
+        ******
+        * Input:
+        * int n: espacios a desplazar
+        ******
+        * Returns:
+        * Sin retorno
+        *****/
 
         void forward(int n){
             if (this->actual + n > 27){ // en este caso se cruza por start
@@ -63,9 +159,37 @@ class jugador{
             }
         }
 
+        /*****
+        * void backward
+        ******
+        * Retrocede al jugador de n espacios
+        * Nota: Dado que el tablero es estatico y no hay ninguna instancia de
+        * retorceso que haga que jugador el jugador retroceda mas alla de start,
+        * no se implemento esa
+        ******
+        * Input:
+        * int n: espacios a desplazar
+        ******
+        * Returns:
+        * Sin retorno
+        *****/
+
         void backward(int n){
             this->actual -= n;
         }
+
+        /*****
+        * void dado
+        ******
+        * Lanza el dado y mueve al jugador
+        ******
+        * Input:
+        * Sin argumentos
+        ******
+        * Returns:
+        * Sin retorno
+        *****/
+
         void dado(){
             if (this->inJail == false){
                 int ran = (rand() % 6) + 1;
@@ -76,6 +200,18 @@ class jugador{
                 cout << "Jugador en la carcel, debe saltar su turno." << endl;
             }
         }
+
+        /*****
+        * void play
+        ******
+        * Aplica al jugador los efectos de la casilla actual
+        ******
+        * Input:
+        * string* table: el arreglo de las casillas del tablero
+        ******
+        * Returns:
+        * Sin retorno
+        *****/
         void play(string* table){
             string s = table[this->actual];
             if(s == "+75"){
@@ -182,7 +318,7 @@ class jugador{
 
 class Tablero{
     private:
-        string* tablero;
+        string* tablero; // el arreglo de las casillas del tablero en orden desde 'start'
 
     public:
         Tablero(){
@@ -219,9 +355,36 @@ class Tablero{
         ~Tablero(){
             delete[] this->tablero;
         }
+
+        /*****
+        * void getTablero
+        ******
+        * Getter del atributo 'tablero'
+        ******
+        * Input:
+        * Sin input
+        ******
+        * Returns:
+        * El valor actual del atributo 'tablero'
+        *****/
+
         string* getTablero(){
             return this->tablero;
         }
+
+        /*****
+        * void show
+        ******
+        * Bosquejo grafico y printeo de informacion del tablero
+        ******
+        * Input:
+        * jugador j1: objeto jugador de uno de los jugadores (Player 1: Usuario)
+        * jugador j2: objeto jugador de uno de los jugadores (Player 2: Auto)
+        * jugador j3: objeto jugador de uno de los jugadores (Player 3: Auto)
+        ******
+        * Returns:
+        * El valor actual del atributo id
+        *****/
 
         void show(jugador j1, jugador j2, jugador j3){
             //Tablero
@@ -261,7 +424,7 @@ class Tablero{
             cout << "| " << temp[0] << " | " << temp[27] << " | " << temp[26] << " | " << temp[25] << " | " << temp[24] << " | " << temp[23] << " | " << temp[22] << " |" << temp[21] << " |" << endl;
             cout << "|_______________________________________________|" << endl;
 
-            //Cantidad de cada jugador
+            //Dinero y posicion de cada jugador
 
             cout << "J1 - Dinero: $" << j1.getPesos() << "\t Posicion: " << j1.getActual() << endl;
             cout << "J2 - Dinero: $" << j2.getPesos() << "\t Posicion: " << j2.getActual() << endl;

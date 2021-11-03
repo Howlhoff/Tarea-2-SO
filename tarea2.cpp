@@ -7,26 +7,37 @@ using namespace std;
 
 const int CNT_HIJOS = 3;
 
-typedef struct {
+
+
+typedef struct { // Este struct se usa para guardar toda la informacion relevante a los procesos jugadores + su pipe para comunicar los jugadores
    pid_t pid;
    jugador player;
    int fd[2];
 } hijo_t;
 
-pid_t todos_padre;
-int hijo_index = -1;
-hijo_t padre_hijo[CNT_HIJOS];
+pid_t todos_padre; // pid del proceso padre
+int hijo_index = -1; // marca del numero de jugador de cada hijo, para el padre (que no es jugador) es -1
+hijo_t padre_hijo[CNT_HIJOS]; // array con la informacion relevante al juego de los 3 procesos
 
-int hijo_con_turno;
-int hijo_cntTurno;
+bool hijo_debe_salir; // bool para indicar si el hijo debe dejar de jugar
+int padre_hijo_actual; // iteracion global de los hijos por el padre
 
-bool hijo_debe_salir;
-int padre_hijo_actual;
-
-bool padre_esperando_a_hijo;
-bool padre_hayUnGanador;
+bool padre_esperando_a_hijo; // bool para indicar si se esta esperando la jugada de un hijo
+bool padre_hayUnGanador; // bool para indicar la presencia de un ganador
 
 Tablero tablero;
+
+/*****
+* void hijo_turno_usuario
+******
+* Gestiona y ejecuta la jugada del jugador 1 (el usuario)
+******
+* Input:
+* int signal_number: utilizado por signal()
+******
+* Returns:
+* Sin retorno
+*****/
 
 void hijo_turno_usuario(int signal_number){
     //Jugada
@@ -76,6 +87,18 @@ void hijo_turno_usuario(int signal_number){
     //Final de la funcion
 }
 
+/*****
+* void hijo_turno
+******
+* Jugada automatica de los jugadores IA
+******
+* Input:
+* int signal_number: utilizado por signal()
+******
+* Returns:
+* Sin retorno
+*****/
+
 void hijo_turno(int signal_number){
     string c;
 
@@ -102,9 +125,33 @@ void hijo_turno(int signal_number){
     }
 }
 
+/*****
+* void hijo_salir
+******
+* Hace que el hijo deje de esperar y pueda seguir y terminar su ejecucion
+******
+* Input:
+* int signal_number: utilizado por signal
+******
+* Returns:
+* Sin retorno
+*****/
+
 void hijo_salir(int signal_number){
     hijo_debe_salir = true;
 }
+
+/*****
+* void padre_terminar_hijo
+******
+* Termina el juego
+******
+* Input:
+* int signal_number: utilizado por signal
+******
+* Returns:
+* Sin retorno
+*****/
 
 void padre_terminar_hijo(int signal_number){
     if (read(padre_hijo[padre_hijo_actual].fd[0], &padre_hijo[padre_hijo_actual].player, sizeof(jugador)) == -1) {
@@ -120,6 +167,18 @@ void padre_terminar_hijo(int signal_number){
     }
     padre_hayUnGanador = true;
 }
+
+/*****
+* void padre_el_hijo_movio
+******
+* Lee la informacion del hijo que acaba de terminar su jugada y permite la continuacion del loop del juego
+******
+* Input:
+* int signal_number: utilizado por signal
+******
+* Returns:
+* Sin retorno
+*****/
 
 void padre_el_hijo_movio(int signal_number){
     if (read(padre_hijo[padre_hijo_actual].fd[0], &padre_hijo[padre_hijo_actual].player, sizeof(jugador)) == -1) {

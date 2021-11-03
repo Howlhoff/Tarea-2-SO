@@ -14,6 +14,7 @@ Paralelo: 201
 
 1. El archivo "tablero.hpp" corresponde a los objetos de tablero y jugador para la utilizacion de la tarea.
 2. El archivo "tarea2.cpp" corresponde al programa principal donde se ubica el main.
+3. En el display del bosquejo del tablero, si dos o mas jugadores estan en la misma casilla, se muestra solo uno. Por eso se especifica su posicion actual junto al dinero.
 
 ## Instrucciones de compilacion:
 
@@ -25,3 +26,4 @@ Paralelo: 201
 ## Sugerencias:
 
 1. No flamear a los bots ni a los desarrolladores
+2. [[Hyperlink Blocked]]
