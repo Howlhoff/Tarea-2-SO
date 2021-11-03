@@ -30,8 +30,9 @@ Tablero tablero;
 
 void hijo_turno_usuario(int signal_number){
     //Jugada
-    int n;
+    char n;
     bool flag =  true;
+    bool dado_tirado = false;
     
     cout << "Menu:\t1. Tirar dado\t2. Ejecutar accion\t3. Este menu." << endl;
     cout << "\nTu turno!\n" << endl;
@@ -39,24 +40,28 @@ void hijo_turno_usuario(int signal_number){
         cout << "> ";
         cin >> n;
         switch(n){
-        case 1:
+        case '1':
             padre_hijo[hijo_index].player.dado();
             cout << "Dado: " << padre_hijo[hijo_index].player.getSiguiente() << endl;
+            dado_tirado = true;
             break;
-        case 2:
-            try{padre_hijo[hijo_index].player.play(tablero.getTablero());}
-            catch(bad_alloc& ba){
-                cerr << "bad_alloc CAUGHT IN PLAYER1" << endl;
+        case '2':
+            if (!dado_tirado){
+                cout << "No ha tirado el dado, no sea tramposo y juege!" << endl;
             }
-            flag = false;
+            else{
+                try{padre_hijo[hijo_index].player.play(tablero.getTablero());}
+                catch(bad_alloc& ba){
+                    cerr << "bad_alloc CAUGHT IN PLAYER1" << endl;
+                }
+                flag = false;
+            }
             break;
-        case 3:
+        case '3':
             cout << "Menu:\t1. Tirar dado\t2. Ejecutar accion\t3. Este menu." << endl;
             break;
         default:
             cout << "Ingrese un valor valido" << endl;
-            cout << ">" << endl;
-            cin >> n;
             break;
         }
     }
