@@ -26,4 +26,4 @@ Paralelo: 201
 ## Sugerencias:
 
 1. No flamear a los bots ni a los desarrolladores
-2. [[Hyperlink Blocked]]
+2. TRANSMIT KROMER
