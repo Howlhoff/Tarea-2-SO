@@ -102,6 +102,12 @@ void hijo_salir(int signal_number){
 }
 
 void padre_terminar_hijo(int signal_number){
+    if (read(padre_hijo[padre_hijo_actual].fd[0], &padre_hijo[padre_hijo_actual].player, sizeof(jugador)) == -1) {
+        cout << "Padre: PLAYER " << padre_hijo_actual+1 << " PIPE READ ERROR" << endl;
+    }
+    else{
+        cout << "Padre: PLAYER " << padre_hijo_actual+1 << " READ" << endl;
+    }
     if (padre_hijo[padre_hijo_actual].player.getPesos() >= 500) {
         cout << "Tenemos un ganador! Felicidades, Jugador " << padre_hijo_actual+1 << endl;
     } else {
