@@ -244,5 +244,16 @@ int main() {
             sleep(rand()%5+2);
         }
     }
+
+    //Cleanup post-juego
+
+    if (hijo_index == -1){
+        for (int i = 0; i < CNT_HIJOS; i++){
+            close(padre_hijo[i].fd[0]);
+        }
+    }
+    else{
+        close(padre_hijo[hijo_index].fd[1]);
+    }
     return 0;
 }
