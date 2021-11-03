@@ -104,11 +104,11 @@ void hijo_salir(int signal_number){
 }
 
 void padre_terminar_hijo(int signal_number){
-    if (jugadores[0].getPesos() > 499){
+    if (jugadores[0].getPesos() >= 500){
         cout << "Tenemos un ganador! Felicidades, Jugador 1" << endl;
-    } else if (jugadores[1].getPesos() > 499){
+    } else if (jugadores[1].getPesos() >= 500){
         cout << "Tenemos un ganador! Felicidades, Jugador 2" << endl;
-    } else if (jugadores[2].getPesos() > 499){
+    } else if (jugadores[2].getPesos() >= 500){
         cout << "Tenemos un ganador! Felicidades, Jugador 3" << endl;
     }
     else {
