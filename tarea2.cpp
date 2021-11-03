@@ -245,7 +245,7 @@ int main() {
         }
     }
 
-    //Cleanup post-juego
+    //Cleanup post-juego de los fds de los jugadores
 
     if (hijo_index == -1){
         for (int i = 0; i < CNT_HIJOS; i++){
